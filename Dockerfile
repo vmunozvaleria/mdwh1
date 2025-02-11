@@ -36,10 +36,10 @@ RUN echo "REDIS_HOST=localhost" >> .env && \
 
 # Install Node.js, yarn, and frontend dependencies
 WORKDIR /app/web-server
-RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash - && \
+RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - && \
     apt install -y nodejs && \
     npm install --global yarn && \
-    yarn
+    yarn install --frozen-lockfile --network-timeout 1000000 && yarn build
 
 # Expose ports
 EXPOSE 3333 9696 9697
