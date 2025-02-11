@@ -9,7 +9,7 @@ RUN apt update && apt install -y \
     libbz2-dev libreadline-dev libsqlite3-dev wget llvm \
     libncurses5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev \
     libffi-dev liblzma-dev python3-pip python3.11 python3.11-venv redis \
-    libpq-dev \
+    libpq-dev python3.11-dev gcc \
     && apt clean && rm -rf /var/lib/apt/lists/*
 
 # Clone Middleware repository
