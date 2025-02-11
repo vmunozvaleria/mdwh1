@@ -2,25 +2,14 @@ FROM ubuntu:22.04
 
 # Set environment variables
 ENV DEBIAN_FRONTEND=noninteractive 
-ENV PYENV_ROOT="/root/.pyenv"
-ENV PATH="$PYENV_ROOT/bin:$PATH"
 
 # Install dependencies
 RUN apt update && apt install -y \
     git curl build-essential libssl-dev zlib1g-dev \
     libbz2-dev libreadline-dev libsqlite3-dev wget llvm \
     libncurses5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev \
-    libffi-dev liblzma-dev python3-pip python3-venv redis \
+    libffi-dev liblzma-dev python3-pip python3.11 python3.11-venv redis \
     && apt clean && rm -rf /var/lib/apt/lists/*
-
-# Install pyenv and Python
-RUN git clone https://github.com/pyenv/pyenv.git /root/.pyenv \
-    && echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc \
-    && echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc \
-    && echo 'eval "$(pyenv init --path)"' >> ~/.bashrc \
-    && source ~/.bashrc \
-    && pyenv install 3.11.6 \
-    && pyenv global 3.11.6
 
 # Clone Middleware repository
 WORKDIR /app
@@ -32,7 +21,7 @@ RUN chmod +x generate_config_ini.sh && ./generate_config_ini.sh
 
 # Setup backend
 WORKDIR /app/backend
-RUN python3 -m venv venv && . venv/bin/activate && \
+RUN python3.11 -m venv venv && . venv/bin/activate && \
     pip install -r requirements.txt -r dev-requirements.txt
 
 # Create .env file
