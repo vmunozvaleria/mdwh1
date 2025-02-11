@@ -36,6 +36,14 @@ RUN echo "REDIS_HOST=localhost" >> .env && \
     echo "ANALYTICS_SERVER_PORT=9696" >> .env && \
     echo "SYNC_SERVER_PORT=9697" >> .env && \
     echo "DEFAULT_SYNC_DAYS=31" >> .env
+    echo "PORT=3333" >> .env && \
+
+    echo "INTERNAL_API_BASE_URL=http://localhost:9696" >> .env && \
+    echo "INTERNAL_SYNC_API_BASE_URL=http://localhost:9697" >> .env && \
+    echo "ENVIRONMENT=prod" >> .env && \
+    echo "NEXT_PUBLIC_APP_ENVIRONMENT=prod" >> .env && \
+    echo "BUILD_DATE=$BUILD_DATE" >> .env
+    echo "MERGE_COMMIT_SHA=$MERGE_COMMIT_SHA" >> .env && \
 
 # Install Node.js, yarn, and frontend dependencies
 WORKDIR /app/web-server
