@@ -31,6 +31,7 @@ RUN python3.11 -m venv venv && . venv/bin/activate && \
 ENV PATH="/app/backend/venv/bin:$PATH"
 
 # Create .env file
+WORKDIR /app/backend
 RUN echo "REDIS_HOST=localhost" >> .env && \
     echo "REDIS_PORT=6385" >> .env && \
     echo "ANALYTICS_SERVER_PORT=9696" >> .env && \
@@ -41,8 +42,8 @@ RUN echo "REDIS_HOST=localhost" >> .env && \
     echo "INTERNAL_SYNC_API_BASE_URL=http://localhost:9697" >> .env && \
     echo "ENVIRONMENT=prod" >> .env && \
     echo "NEXT_PUBLIC_APP_ENVIRONMENT=prod" >> .env && \
-    echo "BUILD_DATE=$BUILD_DATE" >> .env && \
-    echo "MERGE_COMMIT_SHA=$MERGE_COMMIT_SHA" >> .env && \
+    echo "BUILD_DATE=${BUILD_DATE:-unknown}" >> .env && \
+    echo "MERGE_COMMIT_SHA=${MERGE_COMMIT_SHA:-unknown}" >> .env
 
 # Install Node.js, yarn, and frontend dependencies
 WORKDIR /app/web-server
