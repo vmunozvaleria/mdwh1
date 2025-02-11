@@ -35,9 +35,8 @@ RUN echo "REDIS_HOST=localhost" >> .env && \
     echo "REDIS_PORT=6385" >> .env && \
     echo "ANALYTICS_SERVER_PORT=9696" >> .env && \
     echo "SYNC_SERVER_PORT=9697" >> .env && \
-    echo "DEFAULT_SYNC_DAYS=31" >> .env
+    echo "DEFAULT_SYNC_DAYS=31" >> .env && \
     echo "PORT=3333" >> .env && \
-
     echo "INTERNAL_API_BASE_URL=http://localhost:9696" >> .env && \
     echo "INTERNAL_SYNC_API_BASE_URL=http://localhost:9697" >> .env && \
     echo "ENVIRONMENT=prod" >> .env && \
