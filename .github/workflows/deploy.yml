@@ -1,4 +1,4 @@
-name: Docker CI/CD Pipeline
+name: Docker CI mdwhq
 
 on:
   push:

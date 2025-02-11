@@ -9,6 +9,7 @@ RUN apt update && apt install -y \
     libbz2-dev libreadline-dev libsqlite3-dev wget llvm \
     libncurses5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev \
     libffi-dev liblzma-dev python3-pip python3.11 python3.11-venv redis \
+    libpq-dev \
     && apt clean && rm -rf /var/lib/apt/lists/*
 
 # Clone Middleware repository
@@ -22,6 +23,8 @@ RUN chmod +x generate_config_ini.sh && ./generate_config_ini.sh
 # Setup backend
 WORKDIR /app/backend
 RUN python3.11 -m venv venv && . venv/bin/activate && \
+    pip install --upgrade pip && \
+    pip install psycopg2-binary && \
     pip install -r requirements.txt -r dev-requirements.txt
 
 # Create .env file
