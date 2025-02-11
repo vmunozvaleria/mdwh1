@@ -2,12 +2,12 @@ name: Docker CI/CD Pipeline
 
 on:
   push:
-    branches:
-      - main
+    branches: [dev, testing]
+  workflow_dispatch:
 
 jobs:
   build-test-deploy:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
