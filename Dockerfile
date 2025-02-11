@@ -27,6 +27,9 @@ RUN python3.11 -m venv venv && . venv/bin/activate && \
     pip install psycopg2-binary && \
     pip install -r requirements.txt -r dev-requirements.txt
 
+# Ensure Flask is accessible globally
+ENV PATH="/app/backend/venv/bin:$PATH"
+
 # Create .env file
 RUN echo "REDIS_HOST=localhost" >> .env && \
     echo "REDIS_PORT=6385" >> .env && \
@@ -47,6 +50,8 @@ EXPOSE 3333 9696 9697
 # Start services
 CMD service redis-server start && \
     cd /app/backend && . venv/bin/activate && \
-    flask --app analytics_server/app --debug run --port 9696 & \
-    flask --app sync_server/sync_app --debug run --port 9697 & \
-    cd /app/web-server && yarn dev
+    export FLASK_APP=analytics_server/app && \
+    flask run --host=0.0.0.0 --port=9696 & \
+    export FLASK_APP=sync_server/sync_app && \
+    flask run --host=0.0.0.0 --port=9697 & \
+    cd /app/web-server && yarn dev --port 3333
